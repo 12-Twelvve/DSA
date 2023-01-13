@@ -1,0 +1,56 @@
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <pthread.h>
+#include <time.h>
+#include <semaphore.h>
+#include <sys/sem.h>
+
+sem_t reader_lock;
+sem_t reader_lock;
+
+void read_user(void){
+    sem_wait(&reader_lock);
+        printf("ehheheh")
+        sleep(1)
+        sem_post(&writer_lock);
+    
+}
+void write_user(void){
+    while(1){
+        sem_wait(&writer_lock);
+        printf("ehheheh")
+        sleep(1)
+        sem_post(&reader_lock);
+    }
+}
+
+void print(void *x){
+    char *ptr;
+    int c;
+    setbuf(stdout, NULL);
+    for (ptr = x; c = *ptr++;)
+        putc(c, stdout);
+    // printf("i am inside %d \n", x);
+}
+
+int main(int args, char *argv[]) {
+    // Write C code here
+    pthread_t t1, t2;
+    pthread_attr_t attribute;
+    sem_init(&writer_lock, 0, 1);
+    sem_init(reader_lock, 0, 1);
+    
+    pthread_create(&t1, NULL, (void *)print, "hlelo sunshine ");
+    // pthread_create(&t2, NULL, (void *)print, "hello morningstar");
+    // pthread_join(t1, NULL);
+    // pthread_join(t2, NULL);
+    // int pid, pid2;
+    // pid = fork();
+    // pid2 =fork();
+    // printf("%d", pid);
+    // if (pid==0)
+    //     printf("iam child \n");
+    // else
+    //     printf("iam parent \n");
+    return 0;
+}
